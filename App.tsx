@@ -1,13 +1,22 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar} from 'react-native';
+import React, {useState} from 'react';
+import {Button, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 
-import {Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions} from 'react-native/Libraries/NewAppScreen';
+import {Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions} from 'react-native/Libraries/NewAppScreen';
 
 import CardHorizontal from './src/components/CardHorizontal/CardHorizontal';
 import {ThemeProvider} from 'styled-components';
-import {themeVariables as theme} from './src/theme/themeVariables';
+import {themeVariables} from './src/theme/themeVariables';
+import {buildTheme} from './src/theme/CustomComponentsTheme';
+
+//file themes
+const defaultTheme = buildTheme(themeVariables);
+const altTheme = buildTheme({...themeVariables, colors: {...themeVariables.colors, primary: '#ff0'}});
+const themes = [defaultTheme, altTheme];
 
 const App = () => {
+  const [themeIndex, setThemeIndex] = useState(0);
+  const theme = themes[themeIndex];
+  console.log({theme, themeIndex});
   const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null;
   return (
     <ThemeProvider theme={theme}>
@@ -24,13 +33,14 @@ const App = () => {
             <CardHorizontal
               border="round"
               imageBorder="round"
-              bg="#f0f"
+              bg="primary"
               timeToRead="4 min"
               title="Título da notícia"
               date="ontem"
               publisherImageSource={{uri: 'https://picsum.photos/id/137/200/300'}}
               newsImageSource={{uri: 'https://picsum.photos/id/237/200/300'}}
             />
+            <Button title="Change theme" onPress={() => (themeIndex === 0 ? setThemeIndex(1) : setThemeIndex(0))} />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>

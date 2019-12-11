@@ -1,11 +1,12 @@
 import * as CardHorizontal from '../components/CardHorizontal/styled';
-import {themeVariables} from './themeVariables';
+import {ThemeVariables, themeVariables} from './themeVariables';
 
-export interface CustomComponentsTheme {
-  [CardHorizontal.NAME]?: CardHorizontal.ICardHorizontalVariants;
+export interface CustomComponentsTheme extends ThemeVariables {
+  cardHorizontal?: Partial<CardHorizontal.ICardHorizontalVariants>;
+  cardSlider?: Partial<CardHorizontal.ICardHorizontalVariants>;
 }
 
 export const buildTheme = (themeVars = themeVariables) => ({
-  [CardHorizontal.NAME]: CardHorizontal.buildVariants(themeVariables),
+  cardHorizontal: CardHorizontal.buildVariants(themeVariables),
   ...themeVars,
 });

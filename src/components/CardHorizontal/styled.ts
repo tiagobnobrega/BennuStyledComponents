@@ -4,10 +4,7 @@ import {ThemeVariables, VariantProps} from '../../theme/themeVariables';
 import flexboxItem, {FlexboxItemProps} from '../../theme/flexboxItem';
 import {ImageProps} from 'react-native';
 
-// * === Component Name === *
-export const NAME = 'cardNewsHorizontal';
-
-//* === Variants === *
+//* === Build Variants === *
 export const buildVariants = (themeVariables: Pick<ThemeVariables, 'borderRadius'>) => {
   return {
     size: {
@@ -25,9 +22,11 @@ export const buildVariants = (themeVariables: Pick<ThemeVariables, 'borderRadius
     },
   };
 };
-export type ICardHorizontalVariants = ReturnType<typeof buildVariants>;
+export type ICardHorizontalVariants = Partial<ReturnType<typeof buildVariants>>;
 export type ICardHorizontalVariantsProps = VariantProps<ICardHorizontalVariants>;
 
+//* === Variants === *
+export const NAME = 'cardNewsHorizontal';
 const defaultVariants = buildVariants({borderRadius: [0, 2, 4]});
 const sizeVariants = variant({
   prop: 'size',
@@ -42,14 +41,14 @@ const borderVariants = variant({
 const imageBorderVariants = variant({
   prop: 'imageBorder',
   scale: `${NAME}.imageBorder`,
-  variants: defaultVariants.border,
+  variants: defaultVariants.imageBorder,
 });
 
 // * === Styled Components == *
 export const CardWrapper = styled.View<ICardHorizontalVariantsProps & FlexboxItemProps>`
   border: 1px solid #000;
   flex: 1;
-  width: 100%;
+  width: 100%;  
   flex-direction: row;
   ${borderVariants}
   ${sizeVariants}
